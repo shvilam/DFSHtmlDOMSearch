@@ -13,9 +13,12 @@ $(function () {
     $("#testBody").click(function (event) {
         var startNode = $(event.target);
         startDomDsfTree($(this), startNode);
+
     });
     function startDomDsfTree(rootTree, startNode) {
-        nextBrotherDFS(rootTree, startNode);
+        var redNode = nextBrotherDFS(rootTree, startNode);
+        if (redNode != null)
+            return redNode
         var tmpNode = $(startNode)//.parent());
         if (tmpNode.attr("id") == rootTree.attr("id")) {
             return;
@@ -23,7 +26,7 @@ $(function () {
         while (tmpNode.attr("id") != rootTree.attr("id")) { // has parent
             tmpNode = $(tmpNode.parent());
             if (tmpNode.next().length > 0) {
-                nextBrotherDFS(rootTree, $(tmpNode.next()));
+                return nextBrotherDFS(rootTree, $(tmpNode.next()));
             }
         }
     }
