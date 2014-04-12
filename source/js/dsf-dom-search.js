@@ -36,6 +36,8 @@ $(function () {
      3      for all edges from v to w in G.adjacentEdges(v) do
      4          if vertex w is not labeled as discovered then
      5              recursively call DFS(G,w)
+     * @graf this is the full dom it has not been use in that implication
+     * @v the node for iteration
      */
     function nextBrotherDFS(graf, v) {
         if (isRedNode(v)) {
