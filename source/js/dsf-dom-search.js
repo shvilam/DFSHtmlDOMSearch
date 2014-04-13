@@ -15,7 +15,25 @@ $(function () {
         startDomDsfTree($(this), startNode);
 
     });
+    var globalIndex = 0;
+    $("#next").click(function (event) {
+        hightLightNode(nodesList[globalIndex]);
+        if (globalIndex >= nodesList.length) {
+            $("#next").hide();
+        }
+        globalIndex++;
+
+    });
+    function hightLightNode(node) {
+        //node.fadeOut();
+        node.animate({borderWidth: 10}, 100, null, function () {
+            node.animate({borderWidth: 4});
+        });
+    }
+
     function startDomDsfTree(rootTree, startNode) {
+        globalIndex = 0;
+        nodesList = [];
         var redNode = nextBrotherDFS(rootTree, startNode);
         if (redNode != null)
             return redNode
@@ -25,8 +43,11 @@ $(function () {
         }
         while (tmpNode.attr("id") != rootTree.attr("id")) { // has parent
             tmpNode = $(tmpNode.parent());
+            console.log("asdfasdf");
             if (tmpNode.next().length > 0) {
-                return nextBrotherDFS(rootTree, $(tmpNode.next()));
+                var redNode = nextBrotherDFS(rootTree, $(tmpNode.next()));
+                if (redNode != null)
+                    return redNode
             }
         }
     }
@@ -61,6 +82,7 @@ $(function () {
         }
     }
 
+    var nodesList = [];
     // helper function for defending if node is red and
     // could be any function that rerun boolean value
     function isRedNode(node) {
@@ -69,11 +91,13 @@ $(function () {
 
     // could be any function do the desire manipulation to the node
     function paintInBlue(node) {
-        node.css("background-color", "blue")
+        node.css("background-color", "blue");
+        nodesList.push(node);
+
     }
 
     function isPaintedInBlue(node) {
-        return (node.css("background-color") == "blue")
+        return (node.css("background-color") == "blue");
     }
 
 });
