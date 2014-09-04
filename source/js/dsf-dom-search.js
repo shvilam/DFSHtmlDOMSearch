@@ -50,6 +50,7 @@ $(function () {
                     return redNode
             }
         }
+        console.log("nodesList.length",nodesList.length);
     }
 
     /*
@@ -65,28 +66,34 @@ $(function () {
      */
     function nextBrotherDFS(graf, v) {
         if (isRedNode(v)) {
-            paintInBlue(v);
+            //paintInBlue(v);
             return v;
         }
         paintInBlue(v);
-        // loop throw all chaldean a bit of help from jquery
+        //loop throw all chaldean a bit of help from jquery
         v.children().each(function () {
             //console.log("loop throw children " + v.html())
-            if (!isPaintedInBlue($(this))) {
+            //if (!isPaintedInBlue($(this))) {
                 nextBrotherDFS(graf, $(this));
-            }
+            //}
         });
         // if has next border
-        if (v.next().length > 0) {
-            nextBrotherDFS(graf, $(v.next()));
-        }
+        //if (v.next().length > 0) {
+        //    nextBrotherDFS(graf, $(v.next()));
+        //}
     }
 
     var nodesList = [];
     // helper function for defending if node is red and
     // could be any function that rerun boolean value
     function isRedNode(node) {
-        return (node.css("background-color") == "red")
+        console.log("node.css(background-color)",node.css("background-color"));
+        if((node.css("background-color") == "rgb(255, 0, 0)"))
+        {
+            console.log("this is red red");
+        }
+
+        return (node.css("background-color") == "rgb(255, 0, 0)")
     }
 
     // could be any function do the desire manipulation to the node
